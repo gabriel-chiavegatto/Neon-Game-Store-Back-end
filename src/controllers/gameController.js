@@ -4,6 +4,8 @@ import {db, ObjectId} from "../dbStrategy.js/mongo.js"
 async function RegisterGame(req, res){
  const gameData = req.body
  //name, description, category, price, imageURL
+ console.log(gameData)
+ 
  try {
     await db.collection("games").insertOne(gameData)
     res.status(201).send(gameData)
