@@ -31,7 +31,7 @@ async function DeleteGame(req, res){
       res.sendStatus(200)
 
    } catch (error) {
-      
+      return res.sendStatus(500)
    }
 }
 
