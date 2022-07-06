@@ -22,5 +22,16 @@ async function getGames(req, res){
    }
 }
 
+async function DeleteGame(req, res){
+   const idGame = req.params.id
+   try {
+      await db.collection("games").deleteOne({_id: ObjectId(idGame)})
+      res.sendStatus(200)
 
-export {RegisterGame, getGames}
+   } catch (error) {
+      
+   }
+}
+
+
+export {RegisterGame, getGames, DeleteGame}

@@ -9,9 +9,11 @@ const server = express();
 server.use(cors());
 server.use(json());
 
-const PORT = process.env.PORT || 5000;
-
+server.use(productRoute);
 console.log("hello world");
+
+const PORT = process.env.PORT;
+
 server.listen(PORT, () => console.log("Server On!"));
 
-server.use(productRoute);
+
