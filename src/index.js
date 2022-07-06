@@ -1,5 +1,6 @@
-import express, {json} from "express";
+import express, { json } from "express";
 import cors from "cors";
+import productRoute from "./routes/productRoute.js";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -12,3 +13,5 @@ const PORT = process.env.PORT || 5000;
 
 console.log("hello world");
 server.listen(PORT, () => console.log("Server On!"));
+
+server.use(productRoute);
