@@ -16,9 +16,17 @@ async function RegisterGame(req, res){
 }
 
 async function getGames(req, res){
+   const {category} = req.query
+
    try {
       const games = await db.collection("games").find().toArray()
-      res.status(200).send(games)
+      if(category === "Todos"){
+            res.status(200).send(games)
+         }
+      const filter = await db.collection("games").find({categories:category}).toArray()
+      console.log(filter)
+     res.status(200).send(filter)
+      
    } catch (error) {
       return res.sendStatus(500)
    }
