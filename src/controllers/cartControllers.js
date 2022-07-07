@@ -20,16 +20,13 @@ export async function AddProductCart(req, res) {
 }
 
 export async function DeleteProductCart(req, res) {
-  const { id } = res.locals;
+  // const { id } = res.locals;
   const { _id } = req.body;
 
   try {
     await db.collection("cart").deleteOne({ _id: new ObjectId(_id) });
 
-    const productsCart = await db
-      .collection("cart")
-      .find({ userId: new ObjectId(id) })
-      .toArray();
+    const productsCart = await db.collection("cart").find({}).toArray();
 
     res.status(200).send(productsCart);
   } catch (error) {
@@ -38,13 +35,10 @@ export async function DeleteProductCart(req, res) {
 }
 
 export async function ListCart(req, res) {
-  const { id } = res.locals;
+  // const { id } = res.locals;
 
   try {
-    const productsCart = await db
-      .collection("cart")
-      .find({ userId: new ObjectId(id) })
-      .toArray();
+    const productsCart = await db.collection("cart").find({}).toArray();
 
     res.send(productsCart);
   } catch (error) {

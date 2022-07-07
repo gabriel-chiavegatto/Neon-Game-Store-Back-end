@@ -1,21 +1,22 @@
-// import { db } from "../dbStrategy/mongo.js";
-// import jwt from "jsonwebtoken";
+import { db } from "../dbStrategy/mongo.js";
+import jwt from "jsonwebtoken";
 
-// export async function TokenValidationMiddleware(req, res, next) {
-//   const authorization = req.headers.authorization;
-//   const token = authorization?.replace("Bearer ", "").trim();
-//   const secretKey = process.env.JWT_SECRET;
+export async function TokenValidationMiddleware(req, res, next) {
+  const authorization = req.headers.authorization;
+  const token = authorization?.replace("Bearer ", "").trim();
+  const secretKey = process.env.JWT_SECRET;
 
-//   try {
-//     const data = jwt.verify(token, secretKey);
-//   } catch {
-//     res.sendStatus(401);
-//   }
+  try {
+    const { id } = jwt.verify(token, secretKey);
+  } catch {
+    res.sendStatus(401);
+  }
 
-//   res.locals.id = data;
-//   next();
-// }
+  res.locals.id = id;
+  next();
+}
 
+// ----------------------------------------------------------------
 // export async function TokenValidationMiddleware(req, res, next) {
 //   const authorization = req.headers.authorization;
 //   const token = authorization?.replace("Bearer ", "").trim();
