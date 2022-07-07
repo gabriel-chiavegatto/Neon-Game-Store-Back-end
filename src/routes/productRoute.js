@@ -5,6 +5,7 @@ const router = Router()
 
 router.post("/game", RegisterGame)
 router.get("/games", getGames)
+router.get("/game/:id", getGame)
 router.delete("/game/:id", DeleteGame)
 
 

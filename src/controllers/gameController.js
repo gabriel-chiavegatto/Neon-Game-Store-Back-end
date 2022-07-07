@@ -34,7 +34,7 @@ async function getGames(req, res){
 
 async function getGame(req, res){
    const id = req.params.id
-   console.log("oi")
+
    try {
       const game = await db.collection("games").findOne({_id: ObjectId(id)})
       res.status(200).send(game)
