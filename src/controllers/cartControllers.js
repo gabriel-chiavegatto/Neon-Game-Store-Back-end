@@ -1,4 +1,4 @@
-import { db, ObjectId } from "../dbStrategy.js/mongo.js";
+import { db, ObjectId } from "../dbStrategy/mongo.js";
 
 export async function AddProductCart(req, res) {
   const { name, description, price, imageURL } = req.body;

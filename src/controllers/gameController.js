@@ -1,4 +1,4 @@
-import { db, ObjectId } from "../dbStrategy.js/mongo.js";
+import { db, ObjectId } from "../dbStrategy/mongo.js";
 
 async function RegisterGame(req, res) {
   const gameData = req.body;
