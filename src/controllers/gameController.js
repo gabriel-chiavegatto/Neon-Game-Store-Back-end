@@ -24,6 +24,16 @@ async function getGames(req, res){
    }
 }
 
+async function getGame(req, res){
+   const {id} = req.params
+   try {
+      const game = await db.collection("games").find({_id: ObjectId(id)})
+      res.status(200).send(game)
+   } catch (error) {
+      res.sendStatus(500)
+   }
+}
+
 async function DeleteGame(req, res){
    const idGame = req.params.id
    try {
@@ -36,4 +46,4 @@ async function DeleteGame(req, res){
 }
 
 
-export {RegisterGame, getGames, DeleteGame}
+export {RegisterGame, getGames, getGame, DeleteGame}
