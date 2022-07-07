@@ -1,9 +1,12 @@
 import { db, ObjectId } from "../dbStrategy.js/mongo.js";
 import joi from 'joi';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 async function signUp(req, res) {
-    const user = req.body;
-    console.log('esse é o user: ',user);
+    const passwordCrypt = bcrypt.hashSync(req.body.password, 10);
+    const user = { ...req.body, password: passwordCrypt };
+    console.log('esse é o user tentando cadastrar: ', user);
 
     const userSchema = joi.object({
         name: joi.string().required(),
@@ -11,28 +14,69 @@ async function signUp(req, res) {
         password: joi.string().required()
     });
 
-    const validation = userSchema.validate(user, {abortEarly: false});
+    const validation = userSchema.validate(user, { abortEarly: false });
 
-    if (validation.error){
+    if (validation.error) {
         console.log(validation.error.details);
         res.sendStatus(406);
         return;
     }
     try {
-        const repeatUser = await db.collection("users").findOne({email: user.email});
-        if(repeatUser){
+        const repeatUser = await db.collection("users").findOne({ email: user.email });
+        if (repeatUser) {
             res.status(409).send("Existing user");
             return;
         }
 
         await db.collection("users").insertOne(user);
-        res.sendStatus(200);
+        res.sendStatus(201);
     } catch (error) {
-        res.sendStatus(401);
+        res.status(401).send(error);
     }
 }
 
 async function signIn(req, res) {
 
+    const user = req.body;
+    console.log('esse é o user tentando logar: ', user);
+
+    const userSchema = joi.object({
+        email: joi.string().email().required(),
+        password: joi.string().required()
+    });
+
+    const validation = userSchema.validate(user, { abortEarly: false });
+    if (validation.error) {
+        console.log(validation.error.details);
+        res.sendStatus(406);
+        return;
+    }
+    try {
+        const userOnDb = await db.collection('users').findOne({ email: user.email });
+        const checkPassword = bcrypt.compareSync(user.password, userOnDb.password);
+        console.log('usuario encontrado no db',userOnDb);
+        console.log('checkpassword', checkPassword);
+
+        if (userOnDb && checkPassword) {
+
+            const dados = userOnDb.email;
+            const secretKey = process.env.JWT_SECRET;
+            const token = jwt.sign(dados, secretKey);
+            res.status(202).send(token);
+            return
+        }
+        else {
+            res.sendStatus(401);
+            return
+        }
+
+
+    } catch (error) {
+        console.log('errorrrrrrr')
+        res.status(400).send(error);
+    }
+
 }
+
+
 export { signIn, signUp }
