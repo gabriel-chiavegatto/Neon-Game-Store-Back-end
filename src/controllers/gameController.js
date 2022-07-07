@@ -18,13 +18,15 @@ async function getGames(req, res){
 
    try {
       const games = await db.collection("games").find().toArray()
-      if(category === "Todos"){
-            res.status(200).send(games)
-         }
-      const filter = await db.collection("games").find({categories:category}).toArray()
-      console.log(filter)
-     res.status(200).send(filter)
-      
+      if(category){
+         if(category === "Todos"){
+            return res.status(200).send(games)
+         }else{
+            const filter = await db.collection("games").find({categories:category}).toArray()
+            return res.status(200).send(filter)
+         }  
+      }
+    res.status(200).send(games)
    } catch (error) {
       return res.sendStatus(500)
    }
