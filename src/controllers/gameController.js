@@ -22,14 +22,27 @@ async function getGames(req, res) {
   }
 }
 
-async function DeleteGame(req, res) {
-  const idGame = req.params.id;
-  try {
-    await db.collection("games").deleteOne({ _id: ObjectId(idGame) });
-    res.sendStatus(200);
-  } catch (error) {
-    return res.sendStatus(500);
-  }
+async function getGame(req, res){
+   const id = req.params.id
+   console.log("oi")
+   try {
+      const game = await db.collection("games").findOne({_id: ObjectId(id)})
+      res.status(200).send(game)
+   } catch (error) {
+      return res.sendStatus(500)
+   }
 }
 
-export { RegisterGame, getGames, DeleteGame };
+async function DeleteGame(req, res){
+   const idGame = req.params.id
+   try {
+      await db.collection("games").deleteOne({_id: ObjectId(idGame)})
+      res.sendStatus(200)
+
+   } catch (error) {
+      return res.sendStatus(500)
+   }
+}
+
+
+export {RegisterGame, getGames, getGame, DeleteGame}
