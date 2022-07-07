@@ -20,14 +20,14 @@ export async function AddProductCart(req, res) {
 }
 
 export async function DeleteProductCart(req, res) {
-  // const { id } = res.locals;
-  const { _id } = req.body;
-
+  const  {id}  = req.params;
+  console.log(req.params)
+  console.log(id);
   try {
-    await db.collection("cart").deleteOne({ _id: new ObjectId(_id) });
+    await db.collection("cart").deleteOne({ _id: new ObjectId (id) });
 
     const productsCart = await db.collection("cart").find({}).toArray();
-
+    console.log(productsCart);
     res.status(200).send(productsCart);
   } catch (error) {
     res.sendStatus(500);

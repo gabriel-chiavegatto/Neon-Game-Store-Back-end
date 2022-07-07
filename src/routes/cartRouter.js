@@ -9,7 +9,7 @@ import {
 const router = Router();
 
 router.post("/cart", AddProductCart);
-router.delete("/cart", DeleteProductCart);
+router.delete("/cart/:id", DeleteProductCart);
 router.get("/cart", ListCart);
 
 // router.post("/cart", TokenValidationMiddleware, AddProductCart);
