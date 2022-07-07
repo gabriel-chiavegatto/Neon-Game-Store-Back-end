@@ -1,13 +1,14 @@
 import {Router} from "express"
 import { RegisterGame, getGames, getGame, DeleteGame } from "../controllers/gameController.js"
 
-const route = Router()
+const router = Router()
 
-route.post("/game", RegisterGame)
-route.get("/game/:id", getGame)
-route.get("/games", getGames)
-route.delete("/game/:id", DeleteGame)
+router.post("/game", RegisterGame)
+router.get("/games", getGames)
+router.get("/game/:id", getGame)
+router.delete("/game/:id", DeleteGame)
 
-export default route
+
+export default router
 
 
