@@ -61,8 +61,8 @@ async function signIn(req, res) {
 
             const dados = userOnDb.email;
             const secretKey = process.env.JWT_SECRET;
-            const expireToken = { expiresIn: 60 * 60 }
-            const token = jwt.sign(dados, secretKey, expireToken);
+            // const config = { expiresIn: 60*60*24*30 };
+            const token = jwt.sign(dados, secretKey);
             res.status(202).send(token);
             return
         }
