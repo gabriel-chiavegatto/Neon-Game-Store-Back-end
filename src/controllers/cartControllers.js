@@ -10,7 +10,7 @@ export async function AddProductCart(req, res) {
       description,
       price,
       imageURL,
-      userId: new ObjectId(_id),
+      userId: new ObjectId(id),
     });
 
     res.sendStatus(201);
