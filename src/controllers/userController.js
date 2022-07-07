@@ -54,14 +54,15 @@ async function signIn(req, res) {
     try {
         const userOnDb = await db.collection('users').findOne({ email: user.email });
         const checkPassword = bcrypt.compareSync(user.password, userOnDb.password);
-        console.log('usuario encontrado no db',userOnDb);
+        console.log('usuario encontrado no db', userOnDb);
         console.log('checkpassword', checkPassword);
 
         if (userOnDb && checkPassword) {
 
             const dados = userOnDb.email;
             const secretKey = process.env.JWT_SECRET;
-            const token = jwt.sign(dados, secretKey);
+            const expireToken = { expiresIn: 60 * 60 }
+            const token = jwt.sign(dados, secretKey, expireToken);
             res.status(202).send(token);
             return
         }
