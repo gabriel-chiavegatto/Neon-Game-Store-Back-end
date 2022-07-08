@@ -1,4 +1,4 @@
-import { db, ObjectId } from "../dbStrategy.js/mongo.js";
+import { db, ObjectId } from "../dbStrategy/mongo.js";
 import joi from 'joi';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
