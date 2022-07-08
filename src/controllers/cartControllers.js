@@ -45,3 +45,16 @@ export async function ListCart(req, res) {
     res.sendStatus(500);
   }
 }
+
+
+export async function DeleteProductsCart(req, res) {
+  try {
+    await db.collection("cart").deleteMany({});
+
+    const productsCart = await db.collection("cart").find({}).toArray();
+    console.log(productsCart);
+    res.status(200).send(productsCart);
+  } catch (error) {
+    res.sendStatus(500);
+  }
+}

@@ -1,18 +1,11 @@
 import { Router } from "express";
 // import { TokenValidationMiddleware } from "../middlewares/TokenValidationMiddleware.js";
-import {
-  AddProductCart,
-  DeleteProductCart,
-  ListCart,
-  DeleteProductsCart
-} from "../controllers/cartControllers.js";
+import { AddOrderHistory, ListOrdersHistory  } from "../controllers/orderHistoryControllers.js";
 
 const router = Router();
 
-router.post("/cart", AddProductCart);
-router.delete("/cart/:id", DeleteProductCart);
-router.delete("/cart", DeleteProductsCart);
-router.get("/cart", ListCart);
+router.post("/orders", AddOrderHistory);
+router.get("/orders", ListOrdersHistory);
 
 // router.post("/cart", TokenValidationMiddleware, AddProductCart);
 // router.delete("/cart", TokenValidationMiddleware, DeleteProductCart);
