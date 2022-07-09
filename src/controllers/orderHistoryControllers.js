@@ -3,6 +3,7 @@ import { db, ObjectId } from "../dbStrategy/mongo.js";
 export async function AddOrderHistory(req, res) {
   const { name, cpf, products, total, address, payment, date } = req.body;
   const { id } = res.locals;
+  const orderNumber = (+new Date * Math.random()).toString(36).substring(0,6);
 
   try {
     await db
@@ -15,6 +16,7 @@ export async function AddOrderHistory(req, res) {
         address,
         payment,
         date,
+        orderNumber,
         userId: new ObjectId(id),
       });
 
