@@ -1,4 +1,4 @@
-import { db, ObjectId } from "../dbStrategy.js/mongo.js";
+import { db, ObjectId } from "../dbStrategy/mongo.js";
 import joi from 'joi';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
@@ -58,7 +58,6 @@ async function signIn(req, res) {
         console.log('checkpassword', checkPassword);
 
         if (userOnDb && checkPassword) {
-
             const dados = userOnDb.email;
             const secretKey = process.env.JWT_SECRET;
             // const config = { expiresIn: 60*60*24*30 };
