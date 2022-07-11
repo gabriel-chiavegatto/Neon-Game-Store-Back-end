@@ -30,7 +30,7 @@ async function signUp(req, res) {
     await db.collection("users").insertOne(user);
     res.sendStatus(201);
   } catch (error) {
-    res.status(400).send(error);
+    return res.status(400).send(error);
   }
 }
 
