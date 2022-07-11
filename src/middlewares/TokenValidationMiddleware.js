@@ -5,19 +5,12 @@ export async function TokenValidationMiddleware(req, res, next) {
   const token = authorization?.replace("Bearer ", "").trim();
   const secretKey = process.env.JWT_SECRET;
   const { id } = jwt.verify(token, secretKey);
-<<<<<<< HEAD
   
   try {
     
     if(!token || !id){
       return res.sendStatus(401)
   }
-=======
-
-  try {
-    console.log(id);
-    console.log("oii");
->>>>>>> c65ed2953e59b44b996adcc5db584ce23a806a3f
 
     if (!token || !id) {
       return res.sendStatus(401);
