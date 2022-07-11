@@ -1,21 +1,18 @@
 import { Router } from "express";
-// import { TokenValidationMiddleware } from "../middlewares/TokenValidationMiddleware.js";
+import { TokenValidationMiddleware } from "../middlewares/TokenValidationMiddleware.js";
+import { ValidateCart } from "../middlewares/productSchemaValidationMiddleware.js";
 import {
   AddProductCart,
   DeleteProductCart,
   ListCart,
-  DeleteProductsCart
+  DeleteProductsCart,
 } from "../controllers/cartControllers.js";
 
 const router = Router();
 
-router.post("/cart", AddProductCart);
-router.delete("/cart/:id", DeleteProductCart);
-router.delete("/cart", DeleteProductsCart);
-router.get("/cart", ListCart);
-
-// router.post("/cart", TokenValidationMiddleware, AddProductCart);
-// router.delete("/cart", TokenValidationMiddleware, DeleteProductCart);
-// router.get("/cart", TokenValidationMiddleware, ListCart);
+router.post("/cart", TokenValidationMiddleware, ValidateCart, AddProductCart);
+router.delete("/cart/:id", TokenValidationMiddleware, DeleteProductCart);
+router.delete("/cart", TokenValidationMiddleware, DeleteProductsCart);
+router.get("/cart", TokenValidationMiddleware, ListCart);
 
 export default router;

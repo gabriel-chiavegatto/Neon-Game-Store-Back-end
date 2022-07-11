@@ -1,10 +1,10 @@
 import express, { json } from "express";
 import cors from "cors";
-import productRoute from "./routes/productRoute.js";
-import userRoute from "./routes/userRoute.js";
+import productRoute from "./routes/gameRouter.js";
+import userRoute from "./routes/userRouter.js";
 import cartRouter from "./routes/cartRouter.js";
 import checkoutRouter from "./routes/checkoutRouter.js";
-import orderHistoryRouter from "./routes/orderHistoryRouter.js"
+import orderHistoryRouter from "./routes/orderHistoryRouter.js";
 import dotenv from "dotenv";
 
 dotenv.config();

@@ -1,6 +1,6 @@
 import { db, ObjectId } from "../dbStrategy/mongo.js";
 import joi from 'joi';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 async function signUp(req, res) {

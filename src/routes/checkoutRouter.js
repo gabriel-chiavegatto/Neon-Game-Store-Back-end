@@ -1,5 +1,6 @@
 import { Router } from "express";
-// import { TokenValidationMiddleware } from "../middlewares/TokenValidationMiddleware.js";
+import { TokenValidationMiddleware } from "../middlewares/TokenValidationMiddleware.js";
+import { ValidateCheckout } from "../middlewares/productSchemaValidationMiddleware.js";
 import {
   AddOrderCheckout,
   ListCheckout,
@@ -8,11 +9,13 @@ import {
 
 const router = Router();
 
-router.post("/checkout", AddOrderCheckout);
-router.get("/checkout", ListCheckout);
-router.delete("/checkout", DeleteCheckout);
-// router.post("/cart", TokenValidationMiddleware, AddProductCart);
-// router.delete("/cart", TokenValidationMiddleware, DeleteProductCart);
-// router.get("/cart", TokenValidationMiddleware, ListCart);
+router.post(
+  "/checkout",
+  TokenValidationMiddleware,
+  ValidateCheckout,
+  AddOrderCheckout
+);
+router.get("/checkout", TokenValidationMiddleware, ListCheckout);
+router.delete("/checkout", TokenValidationMiddleware, DeleteCheckout);
 
 export default router;

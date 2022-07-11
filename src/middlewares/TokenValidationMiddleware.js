@@ -8,8 +8,13 @@ export async function TokenValidationMiddleware(req, res, next) {
 
   try {
     const { id } = jwt.verify(token, secretKey);
+
+    if(!token || !id){
+      return res.sendStatus(401)
+  }
+
   } catch {
-    res.sendStatus(401);
+    res.sendStatus(500);
   }
 
   res.locals.id = id;
