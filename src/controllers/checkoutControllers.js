@@ -16,7 +16,7 @@ export async function AddOrderCheckout(req, res) {
 }
 
 export async function ListCheckout(req, res) {
-  const { id } = res.locals;
+  // const { id } = res.locals;
 
   try {
     const checkoutOrder = await db.collection("checkout").find({}).toArray();

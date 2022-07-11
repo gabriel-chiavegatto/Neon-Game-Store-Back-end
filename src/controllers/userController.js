@@ -51,6 +51,7 @@ async function signIn(req, res) {
             return;
         }
 
+<<<<<<< HEAD
         const userOnDb = await db.collection('users').findOne({ email: user.email });
         const checkPassword = bcrypt.compareSync(user.password, userOnDb.password);
         const secretKey = process.env.JWT_SECRET;
@@ -66,6 +67,20 @@ async function signIn(req, res) {
         
     } catch (error) {
          res.status(400).send(error);
+=======
+    console.log("usuario encontrado no db", userOnDb);
+    console.log("checkpassword", checkPassword);
+
+    if (userOnDb && checkPassword) {
+      console.log("td certo");
+      const id = userOnDb._id.toString();
+      const secretKey = process.env.JWT_SECRET;
+      console.log(id);
+      // const config = { expiresIn: 60*60*24*30 };
+      const token = jwt.sign({ id }, secretKey);
+      console.log(token);
+      return res.status(202).send(token);
+>>>>>>> c65ed2953e59b44b996adcc5db584ce23a806a3f
     }
 }
 
