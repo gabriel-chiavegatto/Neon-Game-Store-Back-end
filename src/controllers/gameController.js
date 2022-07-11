@@ -14,7 +14,7 @@ async function RegisterGame(req, res) {
 }
 
 async function getGames(req, res){
-   const {category} = req.query
+   const {category, cart} = req.query
 
    try {
       const games = await db.collection("games").find().toArray()
@@ -26,6 +26,10 @@ async function getGames(req, res){
             return res.status(200).send(filter)
          }  
       }
+
+     
+
+
     res.status(200).send(games)
    } catch (error) {
       return res.sendStatus(500)

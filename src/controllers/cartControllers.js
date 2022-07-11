@@ -2,6 +2,7 @@ import { db, ObjectId } from "../dbStrategy/mongo.js";
 
 export async function AddProductCart(req, res) {
   const { name, description, price, imageURL } = req.body;
+  const {cartStatus} = req.query
   const { id } = res.locals;
 
   try {
@@ -12,6 +13,11 @@ export async function AddProductCart(req, res) {
       imageURL,
       userId: new ObjectId(id),
     });
+
+    await db.collection("games").updateOne({_id: ObjectId(id)}, {
+      $set:{inCart:cartStatus}
+    })
+
 
     res.sendStatus(201);
   } catch (error) {
