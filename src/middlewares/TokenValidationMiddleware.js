@@ -19,6 +19,7 @@ export async function TokenValidationMiddleware(req, res, next) {
   }
 
   res.locals.id = id;
+  console.log(res.locals.id)
   next();
 }
 

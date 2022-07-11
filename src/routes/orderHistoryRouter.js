@@ -10,7 +10,7 @@ const router = Router();
 
 router.post(
   "/orders",
- 
+  TokenValidationMiddleware,
   ValidateOrder,
   AddOrderHistory
 );
