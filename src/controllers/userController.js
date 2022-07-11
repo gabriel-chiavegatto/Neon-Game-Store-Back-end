@@ -58,12 +58,17 @@ async function signIn(req, res) {
       .findOne({ email: user.email });
     const checkPassword = bcrypt.compareSync(user.password, userOnDb.password);
 
+    console.log("usuario encontrado no db", userOnDb);
+    console.log("checkpassword", checkPassword);
+
     if (userOnDb && checkPassword) {
       console.log("td certo");
-      const dados = userOnDb.email;
+      const id = userOnDb._id.toString();
       const secretKey = process.env.JWT_SECRET;
+      console.log(id);
       // const config = { expiresIn: 60*60*24*30 };
-      const token = jwt.sign({ dados }, secretKey);
+      const token = jwt.sign({ id }, secretKey);
+      console.log(token);
       return res.status(202).send(token);
     }
     return res.sendStatus(401);
