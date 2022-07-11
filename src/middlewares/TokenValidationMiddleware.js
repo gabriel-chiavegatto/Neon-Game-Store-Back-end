@@ -1,14 +1,13 @@
-import { db } from "../dbStrategy/mongo.js";
 import jwt from "jsonwebtoken";
 
 export async function TokenValidationMiddleware(req, res, next) {
   const authorization = req.headers.authorization;
   const token = authorization?.replace("Bearer ", "").trim();
   const secretKey = process.env.JWT_SECRET;
-
+  const { id } = jwt.verify(token, secretKey);
+  
   try {
-    const { id } = jwt.verify(token, secretKey);
-
+    
     if(!token || !id){
       return res.sendStatus(401)
   }
