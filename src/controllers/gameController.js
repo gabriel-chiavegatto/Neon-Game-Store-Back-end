@@ -27,8 +27,6 @@ async function getGames(req, res){
          }  
       }
 
-     
-
 
     res.status(200).send(games)
    } catch (error) {
